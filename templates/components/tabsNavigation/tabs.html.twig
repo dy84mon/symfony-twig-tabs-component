@@ -1,0 +1,31 @@
+<div {{ stimulus_controller('tabs') }}>
+
+    {# Onglets #}
+    <div class="tabs-nav" role="tablist">
+        {% for tab in tabs %}
+            <button
+                role="tab"
+                data-tabs-target="tab"
+                data-action="click->tabs#switch"
+                data-label="{{ tab.label }}"
+                aria-selected="{{ tab.label == active ? 'true' : 'false' }}"
+                class="tabs-btn {% if tab.label == active %}active{% endif %}"
+            >
+                {{ tab.label }}
+            </button>
+        {% endfor %}
+    </div>
+
+    {# Panneaux #}
+    {% for tab in tabs %}
+        <div
+            role="tabpanel"
+            data-tabs-target="panel"
+            data-label="{{ tab.label }}"
+            class="tabs-panel {% if tab.label != active %}d-none{% endif %}"
+        >
+            {{ tab.content }}
+        </div>
+    {% endfor %}
+
+</div>
